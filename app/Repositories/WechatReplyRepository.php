@@ -28,13 +28,15 @@ class WechatReplyRepository {
             'reply_id' => $reply->id
         ]);
 
-
         return Reply::with('text')->find($reply->id);
     }
 
     public function updateTextReply(array $data)
     {
-
+        $text = ReplyText::find($data['content_id']);
+        $text->content = $data['msg_content'];
+        $text->save();
+        return $text;
     }
 
     public function createNewsReply(array $data)
@@ -49,5 +51,13 @@ class WechatReplyRepository {
             'content' => $data['msg_content']
         ]);
         return Reply::with('news')->find($reply->id());
+    }
+
+    public function updateNewsReply(array $data)
+    {
+        $news = ReplyNews::find($data['content_id']);
+        $news->content = $data['msg_content'];
+        $news->save();
+        return $news;
     }
 } 

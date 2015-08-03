@@ -177,6 +177,20 @@ class WechatController extends BaseController{
         }
     }
 
+    //更新回复文字
+    public function updateTextReply(Request $request)
+    {
+        if($request->ajax()){
+            $reply = $this->reply->updateTextReply($request->all());
+            if($reply){
+                $result = ['status'=>'success','msg'=>'保存成功！','form_type'=>$request->all()['form_type'],'reply'=>$reply];
+            }else{
+                $result = ['status'=>'fail','msg'=>'保存失败！','form_type'=>$request->all()['form_type']];
+            }
+            return $result;
+        }
+    }
+
     //添加回复图文
     public function replyNews(Request $request)
     {
@@ -190,5 +204,17 @@ class WechatController extends BaseController{
             return $result;
         }
     }
-
+    //更新图文回复
+    public function updateNewsReply(Request $request)
+    {
+        if($request->ajax()){
+            $reply = $this->reply->updateNewsReply($request->all());
+            if($reply){
+                $result = ['status'=>'success','msg'=>'保存成功！','form_type'=>$request->all()['form_type'],'reply'=>$reply];
+            }else{
+                $result = ['status'=>'fail','msg'=>'保存失败！','form_type'=>$request->all()['form_type']];
+            }
+            return $result;
+        }
+    }
 }

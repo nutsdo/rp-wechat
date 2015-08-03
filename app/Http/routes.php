@@ -104,13 +104,21 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
         'as'=>'ucenter.wechat.keywords-update','uses'=>'WechatController@keywordsUpdate'
     ]);
 
-    //回复文字
+    //添加回复文字
     Route::post('/wechat/{wechatId}/reply-text',[
         'as'=>'ucenter.wechat.reply-text','uses'=>'WechatController@replyText'
     ]);
     //回复图文
     Route::post('/wechat/{wechatId}/reply-news',[
         'as'=>'ucenter.wechat.reply-news','uses'=>'WechatController@replyNews'
+    ]);
+
+    Route::post('/wechat/{wechatId}/{text}/reply-update-text',[
+        'as'=>'ucenter.wechat.reply-update-text','uses'=>'WechatController@updateTextReply'
+    ]);
+
+    Route::post('/wechat/{wechatId}/{news}/reply-update-news',[
+        'as'=>'ucenter.wechat.reply-update-news','uses'=>'WechatController@updateNewsReply'
     ]);
 });
 

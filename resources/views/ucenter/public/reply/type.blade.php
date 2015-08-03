@@ -67,7 +67,7 @@
                                             <tr>
                                                 <td>{{$kw->keyword}}</td>
                                                 <td>@if($kw->match_type==1) 模糊匹配 @elseif($kw->match_type==2) 全匹配 @endif</td>
-                                                <td id="keyword_id_{{$kw->id}}" data-keyword_id="{{$kw->id}}" data-match_type="{{$kw->match_type}}" data-keyword="{{$kw->keyword}}">
+                                                <td id="keyword_id_{{$kw->id}}" data-keyword_id="{{$kw->id}}" data-match_type="{{$kw->match_type}}" data-keyword="{{$kw->keyword}}" >
                                                     <a href="javascript:;" id="edit_keyword" onclick="editKeyword($(this))" class="fa fa-edit"></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <a href="#" class="fa fa-trash"></a></td>
                                             </tr>
@@ -85,7 +85,10 @@
                                         @foreach($rule->reply as $reply)
                                             <tr>
                                                 <td>{{ $reply->{$reply->reply_type}['content'] }}</td>
-                                                <td><a href="#" class="linecons-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="linecons-trash"></a></td>
+                                                <td id="reply_id_{{$reply->id}}" data-reply_id="{{$reply->id}}" data-reply_type="{{$reply->reply_type}}" data-reply_content ="{{$reply->{$reply->reply_type}['content']}}" data-content_id="{{$reply->{$reply->reply_type}['id']}}" data-form_action="{{route('ucenter.wechat.reply-update-'.$reply->reply_type,[$wechatId,$reply->{$reply->reply_type}['id']] ) }}">
+                                                    <a href="javascript:;" onclick="editReply($(this))" class="linecons-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a href="#" class="linecons-trash"></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -211,7 +214,7 @@
                 var keyword_id = obj.parent().data('keyword_id');
                 var keyword = obj.parent().data('keyword');
                 var match_type = obj.parent().data('match_type');     //
-                var form_action = "{{route('ucenter.wechat.keywords-update',$wechatId)}}";
+                var form_action = obj.parent().data('match_type');
 
                 //更新表单action
                 $('#keyword_form').attr('action',form_action);
@@ -227,9 +230,15 @@
 
             function addText(obj)
             {
-                var keyword_rule_id = obj.data('ruleid');
+                var keyword_rule_id = obj.data('ruleid'),
+                    form_action = "{{route('ucenter.wechat.reply-text',$wechatId)}}";
 
                 $('#text_form input[name=keyword_rule_id]').val(keyword_rule_id);  //rule_id
+
+                $('#text_form').attr('action',form_action);
+                $("#text_form input[name=form_type]").val('create');
+                $("#text_form input[name=content_id]").val('');
+                $("#text_form textarea[name=msg_content]").val('');
 
                 jQuery('#modal-text').modal('show', {backdrop: 'static'});
             }
@@ -237,9 +246,38 @@
             function addNews(obj)
             {
                 var keyword_rule_id = obj.data('ruleid');
-                 $('#news_form input[name=keyword_rule_id]').val(keyword_rule_id);  //rule_id
+                $('#news_form input[name=keyword_rule_id]').val(keyword_rule_id);  //rule_id
 
-                 jQuery('#modal-news').modal('show', {backdrop: 'static'});
+                jQuery('#modal-news').modal('show', {backdrop: 'static'});
+            }
+
+            //编辑回复
+            function editReply(obj)
+            {
+                var reply_type = obj.parent().data('reply_type'), //回复类型
+                    reply_content = obj.parent().data('reply_content'),
+                    content_id = obj.parent().data('content_id'),
+                    form_action = obj.parent().data('form_action');
+                console.log(content_id);
+                //设置基本参数
+                switch (reply_type){
+                    case 'text':
+                        //更新表单action
+                        $('#text_form').attr('action',form_action);
+                        $("#text_form input[name=form_type]").val('update');
+                        $("#text_form input[name=content_id]").val(content_id);
+                        $("#text_form textarea[name=msg_content]").val(reply_content);
+                        break;
+                    case 'news':
+                        $('#news_form').attr('action',form_action);
+                        $("#news_form input[name=form_type]").val('update');
+                        $("#news_form input[name=content_id]").val(content_id);
+                        $("#news_form input[name=msg_content]").val(reply_content);
+
+                        break;
+                }
+                //弹出框类型
+                jQuery('#modal-' + reply_type ).modal('show', {backdrop: 'static'});
             }
 
             </script>
@@ -316,6 +354,7 @@
                     var kw_item = '<tr><td>关键字</td><td>匹配类型</td>'+
                                        '<td><a href="#" class="fa fa-edit"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="fa fa-trash"></a></td>'+
                                    '</tr>';
+
                     $.ajax({
                         type:'POST',
                         url:$('#keyword_form').attr('action'),
@@ -375,6 +414,7 @@
                     {!! Form::open(['route'=>['ucenter.wechat.reply-text',$wechatId],'role'=>'form','class'=>'form-horizontal','id'=>'text_form']) !!}
                     {!! Form::hidden('keyword_rule_id') !!}
                     {!! Form::hidden('reply_type','text') !!}
+                    {!! Form::hidden('content_id') !!}
                     {!! Form::hidden('form_type','create') !!}
                     <div class="form-group no-margin">
                         <textarea class="form-control autogrow" id="msg_content" name="msg_content" placeholder="消息回复内容"></textarea>
@@ -391,10 +431,16 @@
     </div>
     <script>
         $('#text_save').click(function(){
+            var kw_item = '<tr><td>内容</td>'+
+                               '<td><a href="#" class="fa fa-edit"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="fa fa-trash"></a></td>'+
+                           '</tr>';
+
             var keyword_rule_id = $('#text_form input[name=keyword_rule_id]').val(),
                 reply_type = $('#text_form input[name=reply_type]').val(),
                 msg_content = $('#text_form textarea[name=msg_content]').val(),
-                form_type = $('#text_form input[name=form_type]').val();
+                form_type = $('#text_form input[name=form_type]').val(),
+                content_id = $('#text_form input[name=content_id]').val();
+
             $.ajax({
                 type:'POST',
                 url:$('#text_form').attr('action'),
@@ -402,10 +448,26 @@
                     'keyword_rule_id':keyword_rule_id,
                     'reply_type':reply_type,
                     'msg_content':msg_content,
-                    'form_type':form_type
+                    'form_type':form_type,
+                    'content_id':content_id
                 },
                 success:function(data){
-                    console.log(data.msg_content);
+
+                    $('#modal-text').modal('hide');  //隐藏模态框
+                    if(data.form_type=='create'){
+                        //添加关键字到列表
+                        $("#reply_item_" + keyword_rule_id).find('tbody').prepend(kw_item);
+                         //查找节点
+                        $("#reply_item_" + data.reply.keyword_rule_id).find('tr td').eq(0).text(data.reply.content);
+
+                        //操作连接
+                    }else if(data.form_type=='update'){
+                        var reply_item = $('#reply_id_' + data.reply.id);
+
+                        reply_item.data('reply_content',data.reply.content);
+
+                        reply_item.siblings().eq(0).text(data.reply.content);
+                    }
                 },
                 dataType:'json'
 
@@ -426,6 +488,7 @@
                     {!! Form::open(['route'=>['ucenter.wechat.reply-news',$wechatId],'role'=>'form','class'=>'form-horizontal','id'=>'news_form']) !!}
                     {!! Form::hidden('keyword_rule_id') !!}
                     {!! Form::hidden('reply_type','news') !!}
+                    {!! Form::hidden('content_id') !!}
                     {!! Form::hidden('form_type','create') !!}
                     <div class="form-group no-margin">
                         <input type="text" class="form-control" id="msg_content" name="msg_content" placeholder="图文ID" />
@@ -445,7 +508,8 @@
             var keyword_rule_id = $('#news_form input[name=keyword_rule_id]').val(),
                 reply_type = $('#news_form input[name=reply_type]').val(),
                 msg_content = $('#news_form input[name=msg_content]').val(),
-                form_type = $('#news_form input[name=form_type]').val();
+                form_type = $('#news_form input[name=form_type]').val(),
+                content_id = $('#news_form input[name=content_id]').val();
             $.ajax({
                 type:'POST',
                 url:$('#news_form').attr('action'),
@@ -453,10 +517,25 @@
                     'keyword_rule_id':keyword_rule_id,
                     'reply_type':reply_type,
                     'msg_content':msg_content,
-                    'form_type':form_type
+                    'form_type':form_type,
+                    'content_id':content_id
                 },
                 success:function(data){
-                    console.log(data.msg_content);
+                    $('#modal-news').modal('hide');  //隐藏模态框
+                    if(data.form_type=='create'){
+                    //添加关键字到列表
+                    $("#reply_item_" + keyword_rule_id).find('tbody').prepend(kw_item);
+                     //查找节点
+                    $("#reply_item_" + data.reply.keyword_rule_id).find('tr td').eq(0).text(data.reply.content);
+
+                    //操作连接
+                    }else if(data.form_type=='update'){
+                        var reply_item = $('#reply_id_' + data.reply.id);
+
+                        reply_item.data('reply_content',data.reply.content);
+
+                        reply_item.siblings().eq(0).text(data.reply.content);
+                    }
                 },
                 dataType:'json'
 
