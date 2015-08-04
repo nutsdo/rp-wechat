@@ -80,6 +80,7 @@ class WechatController extends Controller{
                     return Message::make($content['reply_type'])->content($content->content);
                     break;
                 case 'news':
+                    if(!$content->content) return '';
                     //查询内容
                     $news = WechatNews::find($content->content);
                     if($news){
