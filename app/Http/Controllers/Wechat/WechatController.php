@@ -56,9 +56,10 @@ class WechatController extends Controller{
         //查询关键字,预载入关键字规则
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',$message->Content)->first();
+        }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->first();
+
         //查询对应回复   一对多
-        //dd($keyword);
+        
         $replies = $keyword->keywordRule->reply;
         //dd($keyword);
         foreach ($replies as $key => $reply) {
@@ -66,8 +67,7 @@ class WechatController extends Controller{
             $contents[$key]['reply_type'] = $reply->reply_type;
         }
         //取随机数
-        $num = mt_rand(0,count($replies));
-
+        $num = mt_rand(0,count($replies)-1);
         $content = $contents[$num];
 
         switch($content['reply_type'])
