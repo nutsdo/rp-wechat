@@ -136,11 +136,11 @@ class WechatController extends BaseController{
         }
     }
 
-    public function keywordsStore(Request $request)
+    public function keywordsStore(Request $request,$wechatId)
     {
         if($request->ajax()){
             //添加关键字到指定的规则
-            $keyword = $this->keyword->create($request->all());
+            $keyword = $this->keyword->create($request->all(),$wechatId);
             if($keyword){
                 $result = ['status'=>'success','msg'=>'添加成功！','form_type'=>$request->all()['form_type'],'keyword'=>$keyword];
             }else{
@@ -150,10 +150,10 @@ class WechatController extends BaseController{
         }
     }
 
-    public function keywordsUpdate(Request $request)
+    public function keywordsUpdate(Request $request,$wechatId)
     {
         if($request->ajax()){
-            $keyword = $this->keyword->update($request->all());
+            $keyword = $this->keyword->update($request->all(),$wechatId);
             if($keyword){
                 $result = ['status'=>'success','msg'=>'更新成功！','form_type'=>$request->all()['form_type'],'keyword'=>$keyword];
             }else{

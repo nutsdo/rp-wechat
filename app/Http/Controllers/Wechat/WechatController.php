@@ -53,14 +53,14 @@ class WechatController extends Controller{
         $public_number = $message->ToUserName;
         $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
         //获取关键词对象
-        $message->Content;
         //查询关键字,预载入关键字规则
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',"$message->Content")->first();
+        }])->where('keyword','like',$message->Content)->first();
         //查询对应回复   一对多
+        //dd($keyword);
         $replies = $keyword->keywordRule->reply;
-        //dd($replies);
+        //dd($keyword);
         foreach ($replies as $key => $reply) {
             $contents[$key] = $reply->{$reply->reply_type};
             $contents[$key]['reply_type'] = $reply->reply_type;
@@ -79,18 +79,18 @@ class WechatController extends Controller{
             case 'location':
                 return Message::make($content['reply_type'])->content($content->content);
                 break;
-            default:
-                return Message::make($content['reply_type'])->content($content->content);
-                break;
             case 'news':
                 //查询内容
                 $news = WechatNews::find($content->content);
                 return Message::make('news')->items(function() use ($news){
                     return array(
-                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover),
+                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover)
                     );
                 });
                 breadk;
+            default:
+                return Message::make($content['reply_type'])->content($content->content);
+                break;
         }
     }
 
