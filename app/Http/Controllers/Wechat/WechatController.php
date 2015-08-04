@@ -33,18 +33,18 @@ class WechatController extends Controller{
         /*
          * 监听指定类型
          * */
-        $server->on('message', 'text', function($message) {
+        $server->on('message', 'text', function($message) use ($wechatId){
             //return $this->reply($message);
             //获取公众号信息
-            $wechat = Wechat::where('wechat_account','=',$message->ToUserName)->first();
+            //$wechat = Wechat::where('wechat_account','=',$message->ToUserName)->first();
 
             //获取关键词对象
             //查询关键字,预载入关键字规则
-            $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
+            $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechatId){
 
-                $query->where('wechat_id','=',$wechat->id);
+                $query->where('wechat_id','=',$wechatId);
 
-            }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->firstOrFail();
+            }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechatId,$message->Content])->firstOrFail();
 
             //查询对应回复   一对多
             $replies = $keyword->keywordRule->reply;
