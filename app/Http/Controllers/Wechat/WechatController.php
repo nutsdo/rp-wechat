@@ -49,7 +49,7 @@ class WechatController extends Controller{
          * 关注事件回复
          * */
 
-        return Message::make('text')->content('欢迎关注！');
+        //return Message::make('text')->content('欢迎关注！');
         //获取公众号信息
         $public_number = $message->ToUserName;
         $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
@@ -70,10 +70,11 @@ class WechatController extends Controller{
         //取随机数
         $num = mt_rand(0,count($replies)-1);
         $content = $contents[$num];
-
         switch($content['reply_type'])
         {
             case 'text':
+                return Message::make($content['reply_type'])->content($content->content);
+                break;
             case 'image':
             case 'voice':
             case 'video':
