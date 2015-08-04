@@ -53,8 +53,10 @@ class WechatController extends Controller{
         //获取公众号信息
         $public_number = $message->ToUserName;
 
-        return Message::make('text')->content($message->Content);
+        //return Message::make('text')->content($message->Content);
         $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
+        return Message::make('text')->content($wechat->public_name);
+        //dd($wechat);
         //获取关键词对象
         //查询关键字,预载入关键字规则
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
