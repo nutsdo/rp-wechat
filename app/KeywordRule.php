@@ -19,7 +19,7 @@ class KeywordRule extends Model {
 
     public function reply()
     {
-        return $this->hasMany('App\reply');
+        return $this->hasMany('App\Reply');
     }
 
 }
