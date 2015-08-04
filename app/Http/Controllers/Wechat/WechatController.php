@@ -55,9 +55,9 @@ class WechatController extends Controller{
         $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
         //获取关键词对象
         //查询关键字,预载入关键字规则
-        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
-            $query->where('wechat_id','=',$wechat->id);
-        }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->firstOrFail();
+//        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
+//            $query->where('wechat_id','=',$wechat->id);
+//        }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->firstOrFail();
 
         //查询对应回复   一对多
         return Message::make('text')->content($message->Content);
