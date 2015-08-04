@@ -61,6 +61,7 @@ class WechatController extends Controller{
 
         //查询对应回复   一对多
         //dd($keyword);
+        return Message::make('text')->content($keyword->keyword);
         $replies = $keyword->keywordRule->reply;
 
         foreach ($replies as $key => $reply) {
