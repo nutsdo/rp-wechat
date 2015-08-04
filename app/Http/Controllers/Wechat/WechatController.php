@@ -60,7 +60,7 @@ class WechatController extends Controller{
         }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->firstOrFail();
 
         //查询对应回复   一对多
-        return Message::make('text')->content($keyword->keyword);
+        return Message::make('text')->content($message->Content);
         $replies = $keyword->keywordRule->reply;
 
         foreach ($replies as $key => $reply) {
