@@ -49,6 +49,7 @@ class WechatController extends Controller{
          * 关注事件回复
          * */
 
+        return Message::make('text')->content('欢迎关注！');
         //获取公众号信息
         $public_number = $message->ToUserName;
         $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
@@ -59,9 +60,9 @@ class WechatController extends Controller{
         }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->first();
 
         //查询对应回复   一对多
-        
-        $replies = $keyword->keywordRule->reply;
         //dd($keyword);
+        $replies = $keyword->keywordRule->reply;
+
         foreach ($replies as $key => $reply) {
             $contents[$key] = $reply->{$reply->reply_type};
             $contents[$key]['reply_type'] = $reply->reply_type;
