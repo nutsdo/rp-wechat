@@ -34,55 +34,7 @@ class WechatController extends Controller{
          * 监听指定类型
          * */
         $server->on('message', 'text', function($message) use ($wechatId){
-            //return $this->reply($message);
-            //获取公众号信息
-            //$wechat = Wechat::where('wechat_account','=',$message->ToUserName)->first();
-
-            //获取关键词对象
-            //查询关键字,预载入关键字规则
-            $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechatId){
-
-                $query->where('wechat_id','=',$wechatId);
-
-            }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechatId,$message->Content])->firstOrFail();
-
-            //查询对应回复   一对多
-            $replies = $keyword->keywordRule->reply;
-            if($replies){
-                foreach ($replies as $key => $reply) {
-                    $contents[$key] = $reply->{$reply->reply_type};
-                    $contents[$key]['reply_type'] = $reply->reply_type;
-                }
-                //取随机数
-                $num = mt_rand(0,count($replies)-1);
-                $content = $contents[$num];
-                switch($content['reply_type'])
-                {
-                    case 'text':
-                        return Message::make($content['reply_type'])->content($content->content);
-                        break;
-                    case 'image':
-                    case 'voice':
-                    case 'video':
-                    case 'location':
-                        return Message::make($content['reply_type'])->content($content->content);
-                        break;
-                    case 'news':
-                        //查询内容
-                        $news = WechatNews::find($content->content);
-                        return Message::make('news')->items(function() use ($news){
-                            return array(
-                                Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover)
-                            );
-                        });
-                        breadk;
-                    default:
-                        return Message::make($content['reply_type'])->content($content->content);
-                        break;
-                }
-            }else{
-                return '';
-            }
+            return $this->reply($message,$wechatId);
         });
 
         $result = $server->serve();
@@ -90,24 +42,21 @@ class WechatController extends Controller{
         return $result;
     }
 
-    public function reply($message)
+    public function reply($message,$wechatId)
     {
         /*
          * 监听事件类型
          * 关注事件回复
          * */
 
-        //return Message::make('text')->content('欢迎关注！');
-        //获取公众号信息
-        $wechat = Wechat::where('wechat_account','=',$message->ToUserName)->first();
 
         //获取关键词对象
         //查询关键字,预载入关键字规则
-        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
+        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechatId){
 
-            $query->where('wechat_id','=',$wechat->id);
+            $query->where('wechat_id','=',$wechatId);
 
-        }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechat->id,$message->Content])->firstOrFail();
+        }])->whereRaw('wechat_id = ? and keyword like ? ',[$wechatId,$message->Content])->firstOrFail();
 
         //查询对应回复   一对多
         $replies = $keyword->keywordRule->reply;
@@ -133,11 +82,16 @@ class WechatController extends Controller{
                 case 'news':
                     //查询内容
                     $news = WechatNews::find($content->content);
-                    return Message::make('news')->items(function() use ($news){
-                        return array(
-                            Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover)
-                        );
-                    });
+                    if($news){
+                        return Message::make('news')->items(function() use ($news){
+                            return array(
+                                Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover)
+                            );
+                        });
+                    }else{
+                        return '';
+                    }
+
                     breadk;
                 default:
                     return Message::make($content['reply_type'])->content($content->content);
