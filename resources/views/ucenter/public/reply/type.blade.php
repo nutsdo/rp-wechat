@@ -69,7 +69,7 @@
                                                 <td>@if($kw->match_type==1) 模糊匹配 @elseif($kw->match_type==2) 全匹配 @endif</td>
                                                 <td id="keyword_id_{{$kw->id}}" data-keyword_id="{{$kw->id}}" data-match_type="{{$kw->match_type}}" data-keyword="{{$kw->keyword}}" >
                                                     <a href="javascript:;" id="edit_keyword" onclick="editKeyword($(this))" class="fa fa-edit"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <a href="#" class="fa fa-trash"></a></td>
+                                                    <a href="javascript:;" data-delete_type="keyword" data-delete_action="{{route('ucenter.wechat.keyword.destroy',[$wechatId,$kw->id])}}" onclick="destroyItem($(this))" class="fa fa-trash"></a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -87,7 +87,7 @@
                                                 <td>{{ $reply->{$reply->reply_type}['content'] }}</td>
                                                 <td id="reply_id_{{$reply->id}}" data-reply_id="{{$reply->id}}" data-reply_type="{{$reply->reply_type}}" data-reply_content ="{{$reply->{$reply->reply_type}['content']}}" data-content_id="{{$reply->{$reply->reply_type}['id']}}" data-form_action="{{route('ucenter.wechat.reply-update-'.$reply->reply_type,[$wechatId,$reply->{$reply->reply_type}['id']] ) }}">
                                                     <a href="javascript:;" onclick="editReply($(this))" class="linecons-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <a href="#" class="linecons-trash"></a>
+                                                    <a href="javascript:;" data-delete_type="reply" data-delete_action="{{route('ucenter.wechat.reply.destroy',[$wechatId,$reply->id])}}" onclick="destroyItem($(this))" class="linecons-trash"></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -224,6 +224,18 @@
                 $('input[name=match_type][value='+ match_type +']').attr('checked',true);  //match_type
                 //弹窗
                 jQuery('#keyword_modal').modal('show', {backdrop: 'static'});
+            }
+
+            //删除关键字
+            function destroyItem(obj){
+                var action = obj.data('delete_action'),
+                    type = obj.data('delete_type'),
+                    data_id = obj.parent().data(type + '_id');
+
+                jQuery('#modal-confirm').modal('show', {backdrop: 'static'});
+                $('#confirm-delete').data('action',action)
+                                    .data('type',type)
+                                    .data('data_id',data_id);
             }
 
             //添加回复
@@ -542,7 +554,44 @@
             });
         });
     </script>
+	<div class="modal fade" id="modal-confirm">
+		<div class="modal-dialog">
+			<div class="modal-content">
 
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">确定删除</h4>
+				</div>
+
+				<div class="modal-body">
+					确定要删除吗？
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-info" id="confirm-delete">确认删除</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script>
+        $('#confirm-delete').click(function(){
+            var action = $(this).data('action'),
+                type =  $(this).data('type'),
+                data_id =  $(this).data('data_id');
+            $.ajax({
+                type:'DELETE',
+                url:action,
+                success:function(data){
+                    $('#modal-confirm').modal('hide');  //隐藏模态框
+                    $('#'+ type +'_id_' + data_id).parent().remove();
+                },
+                dataType:'json'
+
+            });
+        });
+    </script>
  @stop
 
  @section('style')

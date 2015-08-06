@@ -104,6 +104,12 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
         'as'=>'ucenter.wechat.keywords-update','uses'=>'WechatController@keywordsUpdate'
     ]);
 
+    //关键字资源
+    Route::resource('wechat.keyword', 'KeywordController');
+
+    //自动回复资源
+    Route::resource('wechat.reply', 'ReplyController');
+
     //添加回复文字
     Route::post('/wechat/{wechatId}/reply-text',[
         'as'=>'ucenter.wechat.reply-text','uses'=>'WechatController@replyText'

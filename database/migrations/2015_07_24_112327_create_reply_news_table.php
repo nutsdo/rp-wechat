@@ -16,8 +16,11 @@ class CreateReplyNewsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('content');
-            $table->integer('reply_id');
+            $table->integer('reply_id')->unsigned();
 			$table->timestamps();
+
+            $table->foreign('reply_id')->references('id')->on('replies')
+                  ->onUpdate('cascade')->onDelete('cascade');
 		});
 	}
 
@@ -28,6 +31,9 @@ class CreateReplyNewsTable extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('reply_news', function (Blueprint $table) {
+            $table->dropForeign('reply_news_reply_id_foreign');
+        });
 		Schema::drop('reply_news');
 	}
 

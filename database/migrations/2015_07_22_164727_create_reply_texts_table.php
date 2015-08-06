@@ -16,7 +16,11 @@ class CreateReplyTextsTable extends Migration {
 		{
 			$table->increments('id');
             $table->text('content');
+            $table->integer('reply_id')->unsigned();
 			$table->timestamps();
+
+            $table->foreign('reply_id')->references('id')->on('replies')
+                ->onUpdate('cascade')->onDelete('cascade');
 		});
 	}
 
@@ -27,6 +31,9 @@ class CreateReplyTextsTable extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('reply_texts', function (Blueprint $table) {
+            $table->dropForeign('reply_texts_reply_id_foreign');
+        });
 		Schema::drop('reply_texts');
 	}
 

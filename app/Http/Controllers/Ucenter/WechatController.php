@@ -34,6 +34,7 @@ class WechatController extends BaseController{
     public function __construct(WechatRepository $wechatRepository,KeywordRuleRepository $ruleRepository,
                                 WechatKeywordRepository $wechatKeywordRepository,WechatReplyRepository $wechatReplyRepository)
     {
+        parent::__construct();
         $this->public = $wechatRepository;
         $this->keyword_rule = $ruleRepository;
         $this->keyword = $wechatKeywordRepository;
