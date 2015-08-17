@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Keyword;
 use App\Wechat;
 use App\WechatNews;
+use Illuminate\Support\Facades\Session;
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Message;
 use Overtrue\Wechat\Auth;
@@ -120,10 +121,15 @@ class WechatController extends Controller{
      * */
     public function auth($wechatId)
     {
-        $wechat = Wechat::find($wechatId);
-        $appId  = $wechat->app_id;
-        $secret = $wechat->secret;
-        $auth = new Auth($appId,$secret);
-        $auth->authorize();
+        if (empty( Session::get('logged_user') )) {
+            $wechat = Wechat::find($wechatId);
+            $appId  = $wechat->app_id;
+            $secret = $wechat->secret;
+            $auth = new Auth($appId,$secret);
+            $auth->authorize();
+
+            $user = $auth->authorize(); // 返回用户 Bag
+            session(['logged_user' => $user]);
+        }
     }
 }
