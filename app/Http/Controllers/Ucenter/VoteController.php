@@ -19,7 +19,6 @@ class VoteController extends BaseController{
     private $vote;
     public function __construct(VoteRepository $vote)
     {
-        $this->middleware('wechatAuth');
         parent::__construct();
         $this->vote = $vote;
     }

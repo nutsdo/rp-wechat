@@ -135,6 +135,7 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
 
     //投票资源
     Route::get('wechat/{wechat}/vote/{vote}/toplist',[
+        'middleware'=>'wechatAuth',
         'as'=>'ucenter.wechat.vote.toplist','uses'=>'VoteController@toplist'
     ]);
     Route::resource('wechat.vote', 'VoteController');
