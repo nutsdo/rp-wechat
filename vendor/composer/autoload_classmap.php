@@ -28,6 +28,8 @@ return array(
     'CreateReplyTextsTable' => $baseDir . '/database/migrations/2015_07_22_164727_create_reply_texts_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateVersion' => $baseDir . '/database/migrations/2015_04_16_101624_create_version.php',
+    'CreateVoteUsersTable' => $baseDir . '/database/migrations/2015_08_13_090034_create_vote_users_table.php',
+    'CreateVotesTable' => $baseDir . '/database/migrations/2015_08_11_100809_create_votes_table.php',
     'CreateWechatNewsTable' => $baseDir . '/database/migrations/2015_07_25_111238_create_wechat_news_table.php',
     'CreateWechatsTable' => $baseDir . '/database/migrations/2015_06_18_163635_create_wechats_table.php',
     'CreateWinnersTable' => $baseDir . '/database/migrations/2015_06_08_105358_create_winners_table.php',

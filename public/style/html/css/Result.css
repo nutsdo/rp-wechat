@@ -1,0 +1,20 @@
+@charset "utf-8";
+/*主体*/
+.kuang{ width:100%; height:auto; border:1px solid #32ccfe;  margin-top:6%;}
+.heade{ width:100%; background:#32ccfe; text-align:center; padding:5% 3%;}
+.heade p{ margin:0;}
+.piao{ width:48%; background:#fcf8bb; height:auto; padding:5% 2%; text-align:center; float:left; margin-top:3%;}
+.pa{ width:4%; float:left;}
+.photo{ margin:3% 0;}
+.photo img{ width:100%;}
+.zhai{ padding-left:3%; padding-right:3%;}
+.mag-bom{ margin-bottom:18%;}
+
+a{ color:inherit;}
+.info td a:visited{ text-decoration:none; color:#000;}
+/*表格*/
+.table{ text-align:center; border:1px solid #32ccfe;}
+.table thead tr{ background:#32ccfe;}
+.table tr{ border:none;}
+.main{ margin-top:5%;}
+.table > tbody > tr > td{ border-top:none;}

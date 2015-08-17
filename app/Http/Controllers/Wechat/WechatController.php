@@ -12,6 +12,7 @@ use App\Wechat;
 use App\WechatNews;
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Message;
+use Overtrue\Wechat\Auth;
 /*
  * 微信交互控制器
  * @param $wechatId 公众号ID
@@ -114,5 +115,15 @@ class WechatController extends Controller{
         return 'text';
     }
 
-
+    /*
+     * 微信网页授权
+     * */
+    public function auth($wechatId)
+    {
+        $wechat = Wechat::find($wechatId);
+        $appId  = $wechat->app_id;
+        $secret = $wechat->secret;
+        $auth = new Auth($appId,$secret);
+        $auth->authorize();
+    }
 }

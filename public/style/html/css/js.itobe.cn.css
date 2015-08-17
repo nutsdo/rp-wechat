@@ -1,0 +1,36 @@
+* {
+	margin: 0px; padding: 0px;
+}
+body {
+	background: rgb(237, 237, 237); font: 12px/1.5 Arial; color: rgb(102, 102, 102); font-size-adjust: none; font-stretch: normal; padding:0;
+}
+ul {
+	list-style: none;
+}
+li {
+	list-style: none;
+}
+a {
+	color: rgb(102, 102, 102); text-decoration: none;
+}
+a:hover {
+	color: rgb(0, 0, 0); text-decoration: none;
+}
+img {
+	border: 0px currentColor;
+}
+#waterfall {
+	margin: 0px auto; text-align: center;
+}
+#waterfall {
+    margin-bottom: 50px;
+}
+#waterfall img {
+	width: 100%;
+}
+#waterfall .cell {
+	background: rgb(255, 255, 255); border: 1px solid rgb(227, 227, 227); margin:10px 0 10px 0; padding:0;
+}
+#waterfall .cell:hover {
+	box-shadow: 0px 2px 3px 1px #999;
+}

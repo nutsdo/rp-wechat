@@ -45,7 +45,6 @@
  @stop
 
  @section('right')
-
     <div class="col-md-9 mailbox-right">
         @include('ucenter.public.reply.nav')
 

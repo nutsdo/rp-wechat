@@ -1,0 +1,26 @@
+@charset "utf-8";
+a{ color:inherit;}
+.mybtn:visited{ text-decoration:none; color:#fff;}
+.form{ margin-top:3%;}
+.text{ width:80%; border-radius: 6px; border: 1px solid #f6a522; padding: 6px 12px;}
+.mybtn{  border-radius: 6px; background:#f6a522; color:#fff;}
+.list{ padding:0;}
+.col{ padding:0; margin:0;}
+.mar{ padding:0; border-radius:0;}
+.mar1{}
+.mes{ background:#32ccfe;}
+.mes span{ font-size:0.8em; color:#fff;}
+.mes p{ text-align:center; margin:0;}
+.btnbj{ width:100%; border-radius:0; background:url(../imges/Main_btn.jpg) repeat-x; background-size: contain; border-color:transparent; margin-top:3%;}
+/*模态框样式*/
+.kuang{ margin-top:50%;}
+.m_head{ border-bottom:none;}
+.m_foot{ border-top:none; padding:10% 15% 10% 15%;}
+.center{ text-align:center;}
+.center img{ width:13%; text-align:center;}
+.radius{ border-radius:6px;}
+.page-header-fixed .navbar{
+    min-height: 50px;
+}
+
+

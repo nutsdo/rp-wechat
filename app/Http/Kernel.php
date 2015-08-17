@@ -30,6 +30,7 @@ class Kernel extends HttpKernel {
         'access' => 'App\Http\Middleware\AccessControl',
         'apiauth' =>'App\Http\Middleware\ApiAuthenticate',
         'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
+        'wechatAuth' => 'App\Http\Middleware\WechatAuth',
 	];
 
 }

@@ -35,46 +35,26 @@
                     自动回复
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    Drafts
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    Spam
-                    <span class="badge badge-purple pull-right">2</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    Trash
-                </a>
-            </li>
+            <hr/>
         </ul>
 
         <div class="vspacer"></div>
 
         <ul class="list-unstyled mailbox-list">
-            <li class="list-header">Filter by tags</li>
+            <li class="list-header">高级功能</li>
             <li>
-                <a href="#">
-                    ThemeForest
-                    <span class="badge badge-success badge-roundless pull-right upper">Envato</span>
+                <a href="{{route('ucenter.wechat.vote.index',$wechatId)}}">
+                    投票
+                    <span class="badge badge-success badge-roundless pull-right upper">Vote</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    Society
+                    微官网
                     <span class="badge badge-red badge-roundless pull-right upper">Friends</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    Work
-                    <span class="badge badge-warning badge-roundless pull-right upper">Google</span>
-                </a>
-            </li>
+            <hr />
         </ul>
 
     </div>

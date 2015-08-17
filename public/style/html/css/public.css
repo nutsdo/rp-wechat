@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+a{ color:inherit;}
+a:hover{ text-decoration:none; color:#f5a623;}
+/*导航位置*/
+.nav{ padding-top:3%;}
+.nav img{ width:90%;}
+.nav span{ color:#f5a623; font-size:1.2em;}
+.pad{ padding:0;}
+/*图片位置*/
+.bar{ width:100%; margin-top:3%;}
+.info{ width:100%; height:auto; background:#fcf8bb; text-align:center;}
+.info span{ font-size:0.8em; color:#ae8955;}
+.icon{ width:4%; margin:5% 1%;}
+/*顶部悬浮层*/
+#wrap{ width:100%; position:absolute; z-index:100;}
+.fudong{ margin:0; width:100%;}
+.quyuanjiao{  border:none; border-radius:0; background-color:rgba(102,102,102,0.8);}
+.bjcol{ background:#f5a623; border-color:transparent; padding:1% 2%;}
+.border{ border:none; padding:3%;}
+.ct { margin-top:1% !important;}
+/*底部悬浮层*/
+.color{ background:#fbfbfb; border-color:#ddd; }
+.sm{ text-align:center; padding:0; margin-top:2%;}
+.sm img{ width:2%;}
+.colxs{ font-size:1.2em; color:#f5a623; padding:0;}
+.colxs img{ width:25%;}
+.con{ margin-top:8%;}
+.cons a{ color:#9b9b9b;}

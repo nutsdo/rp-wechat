@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS Document */
+a{ color:inherit;}
+a:hover{ text-decoration:none; color:#f5a623;}
+/*导航位置*/
+.nav{ padding:3%;}
+.nav img{ width:90%;}
+.nav span{ color:#f5a623; font-size:1.2em;}
+.pad{ padding:0;}
+.info{ padding:3%; margin-bottom:5%;}
+/*顶部悬浮层*/
+#wrap{ width:100%; position:absolute; z-index:100;}
+.fudong{ margin:0; width:100%;}
+.quyuanjiao{  border:none; border-radius:0; background-color:rgba(102,102,102,0.8);}
+.bjcol{ background:#f5a623; border-color:transparent; padding:1% 2%;}
+.border{ border:none; padding:3%;}
+.ct { margin-top:1% !important;}
+/*警告提示*/
+.info{ width:100%; height:auto; background:#fcf8bb;}
+.info span{ font-size:0.8em; color:#ae8955;}
+/*表单*/
+.container label{ font-size:0.8em; color:#4990e0;}
+.btnbj{ width:100%; border-radius:0; background:url(../imges/Main_btn.jpg) repeat-x; background-size: contain;  border-color:transparent; margin-top:3%; color:#fff; font-size:1.4em;}
+.form-group img{ width:3%; float:left; margin-top: 1.5%;}
+
+/*报名成功页*/
+.wode:hover{ background-color:inherit; border-color:#f5a623;}
+.wode:hover{ color: #f4a522; text-decoration: none;}
+.wode:active{ background-image:inherit;}
+.wode:visited{ background-image:inherit;}
+/*导航位置*/
+.nav{ padding:3%;}
+.nav span{ color:#f5a623; font-size:1.2em;}
+/*对勾(报名成功)*/
+.bigimg{ text-align:center;}
+.bigimg img{width:60%; margin-top:30%;}
+.tishi{ text-align:center; margin-top:5%;}
+.tishi p{ font-size:1.5em; color:#8b562a;}
+.mybtn{ text-align:center; display:inherit; margin-top:5%;}
+.wode{ background:url(../imges/Apply_s_wechat.png) no-repeat 8%; background-size:18%; padding:3% 20%; color:#f7a623; border-color:#f5a623;}
+.wode1{ background:url(../imges/Apply_s_quan.png) no-repeat 7%; background-size:18%;  padding:3% 17%; margin-top:5%;}
+/*X(报名失败)*/
+.false{ padding:3% 20%; color:#9b9b9b;}
+.tishi1{ text-align:center; margin-top:8%;}
+.tishi1 p{ font-size:1.5em; color:#4a4a4a;}
+.mybtn1{ text-align:center; display:inherit; margin-top:10%;}
+.false:hover{ background-color:#fff;}
+
+/*
+报名失败页
+*/

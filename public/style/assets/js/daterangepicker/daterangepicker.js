@@ -135,9 +135,9 @@
 
             this.showDropdowns = false;
             this.showWeekNumbers = false;
-            this.timePicker = false;
+            this.timePicker = true;
             this.timePickerIncrement = 30;
-            this.timePicker12Hour = true;
+            this.timePicker12Hour = false;
             this.singleDatePicker = false;
             this.ranges = {};
 

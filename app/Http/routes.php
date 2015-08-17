@@ -53,6 +53,11 @@ Route::get('posts/{nodeId?}', 'Home\PostController@postsList');
 
 Route::group(['namespace' => 'Wechat'],function(){
     Route::match(['get','post'],'wechat/{wechatId}','WechatController@index');
+
+    //微信授权页面
+    Route::get('/wechat/{wechatId}/authorize',[
+        'as'=>'wechat.authorize','uses'=>'WechatController@auth'
+    ]);
 });
 
 
@@ -126,6 +131,30 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
     Route::post('/wechat/{wechatId}/{news}/reply-update-news',[
         'as'=>'ucenter.wechat.reply-update-news','uses'=>'WechatController@updateNewsReply'
     ]);
+
+
+    //投票资源
+    Route::get('wechat/{wechat}/vote/{vote}/toplist',[
+        'as'=>'ucenter.wechat.vote.toplist','uses'=>'VoteController@toplist'
+    ]);
+    Route::resource('wechat.vote', 'VoteController');
+
+
+    Route::get('wechat/{wechat}/vote/{vote}/register/success',[
+        'as'=>'ucenter.wechat.vote.user.success','uses'=>'VoteUserController@success'
+    ]);
+    Route::get('wechat/{wechat}/vote/{vote}/register/fail',[
+        'as'=>'ucenter.wechat.vote.user.fail','uses'=>'VoteUserController@fail'
+    ]);
+    //用户投票
+    Route::post('wechat/{wechat}/vote/{vote}/user/{user}/voting',[
+        'middleware' => 'wechatAuth',
+        'as'=>'ucenter.wechat.vote.user.voting','uses'=>'VoteUserController@voting'
+    ]);
+
+    //投票用户资源
+    Route::resource('wechat.vote.user','VoteUserController');
+
 });
 
 //==================================================================//
