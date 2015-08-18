@@ -29,7 +29,7 @@ class UploadController extends Controller{
                     $extension = $file->getClientOriginalExtension();//取得上传文件的后缀名
                     $path = 'uploads/'.$type.'/';
                     $savePath = $path.date('Ymd',time());
-                    is_dir($savePath) || mkdir($savePath,null,true); //如果目录不存在则创建
+                    is_dir($savePath) || mkdir($savePath,0777,true); //如果目录不存在则创建
 
                     //
                     $uniqid = uniqid(); //函数基于以微秒计的当前时间，生成一个唯一的 ID。
