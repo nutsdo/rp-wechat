@@ -54,19 +54,6 @@ class VoteController extends BaseController{
         flash()->success('修改成功');
         return redirect()->back();
     }
-    //活动首页
-    public function show(Request $request,$wechatId,$voteId)
-    {
-        $vote = Vote::with(['players'=>function($query){
-            $query->orderBy('join_number', 'asc');
-        }])->find($voteId);
-
-        if($request->ajax()){
-            return response()->json(view('ucenter.public.vote.list',compact('vote'))->render());
-        }
-
-        return view('ucenter.public.vote.show',compact('vote'));
-    }
 
     public function topList($wechatId,$voteId)
     {
