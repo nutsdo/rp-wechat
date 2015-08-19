@@ -129,6 +129,7 @@ class WechatController extends Controller{
             $user = $auth->authorize();
 //            return $user;
             session(['logged_user' => $user]);
+            dd(session('logged_user'));
             return redirect()->back();
         }
     }

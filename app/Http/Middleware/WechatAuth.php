@@ -14,6 +14,7 @@ class WechatAuth {
 	 */
 	public function handle($request, Closure $next)
 	{
+        var_dump(Session::all());
         if(session('openid')){
             return $next($request);
         }else{
