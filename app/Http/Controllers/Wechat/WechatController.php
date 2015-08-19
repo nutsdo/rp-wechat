@@ -126,8 +126,9 @@ class WechatController extends Controller{
             $appId  = $wechat->app_id;
             $secret = $wechat->secret;
             $auth = new Auth($appId,$secret);
-            $user = $auth->authorize($to = null, $scope = 'snsapi_userinfo', $state = 'STATE');
-            session(['logged_user' => $user]);
+            $user = $auth->authorize();
+            dd($user);
+            //session(['logged_user' => $user]);
         }
     }
 }
