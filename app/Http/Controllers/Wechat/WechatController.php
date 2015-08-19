@@ -125,9 +125,9 @@ class WechatController extends Controller{
             $wechat = Wechat::find($wechatId);
             $appId  = $wechat->app_id;
             $secret = $wechat->secret;
-//            $auth = new Auth($appId,$secret);
-//            $user = $auth->authorize();
-            return $wechat;
+            $auth = new Auth($appId,$secret);
+            $user = $auth->authorize();
+            return $user;
             //session(['logged_user' => $user]);
         }
     }
