@@ -22,9 +22,9 @@ class WechatRequest extends Request {
 	public function rules()
 	{
 		return [
-			"public_name" => "required|alpha_dash|between:2,16|unique:wechats,public_name,".$this->id,
+			"public_name" => "required|between:2,16|unique:wechats,public_name,".$this->id,
             "original_id" => "required|alpha_dash|size:15",
-            "wechat_account" => "required|between:5,16",
+            "wechat_account" => "required|between:2,16",
             "wechat_type" => "required|digits:1",
             "app_id" => "required|size:18",
             "secret" => "size:32",

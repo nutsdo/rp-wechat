@@ -69,7 +69,7 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
     Route::get('/',[
         'as'=>'ucenter','uses'=>'UserController@index'
     ]);
-
+    //微信功能管理
     Route::resource('wechat', 'WechatController',['names'=>['index'=>'ucenter.wechat']]);
 
     Route::get('/wechat/{wechatId}/manage',[
