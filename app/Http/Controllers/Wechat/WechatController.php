@@ -122,22 +122,17 @@ class WechatController extends Controller{
     public function auth($wechatId)
     {
         if (empty( Session::get('logged_user') )) {
+            //获取其他认证服务号的AppId、AppSecret ,并进行授权(本功能需再添加)
             $wechat = Wechat::find($wechatId);
             $appId  = $wechat->app_id;
             $secret = $wechat->secret;
             $auth = new Auth($appId,$secret);
-            $auth->authorize();
-            $user =$auth->user();
-//            return $user;
+            $user = $auth->authorize();
+
             Session::put('logged_user', $user);
-            //dd(session('logged_user'));
+
             return redirect()->back();
         }
     }
 
-    public function session(){
-
-        Session::push('user.teams', 'developers');
-        dd(Session::get('user.teams'));
-    }
 }
