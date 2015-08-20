@@ -126,11 +126,18 @@ class WechatController extends Controller{
             $appId  = $wechat->app_id;
             $secret = $wechat->secret;
             $auth = new Auth($appId,$secret);
-            $user = $auth->authorize();
+            $auth->authorize();
+            $user =$auth->user();
 //            return $user;
-            session(['logged_user' => $user]);
+            Session::put('logged_user', $user);
             //dd(session('logged_user'));
             return redirect()->back();
         }
+    }
+
+    public function session(){
+
+        Session::push('user.teams', 'developers');
+        dd(Session::get('user.teams'));
     }
 }

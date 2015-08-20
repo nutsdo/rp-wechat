@@ -58,6 +58,10 @@ Route::group(['namespace' => 'Wechat'],function(){
     Route::get('/wechat/{wechatId}/authorize',[
         'as'=>'wechat.authorize','uses'=>'WechatController@auth'
     ]);
+    //session测试
+    Route::get('/wechat/{wechatId}/session',[
+        'as'=>'wechat.session','uses'=>'WechatController@session'
+    ]);
 });
 
 
