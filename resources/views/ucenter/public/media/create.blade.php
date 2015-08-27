@@ -64,6 +64,10 @@
 
                 <input type="text" class="form-control" name="news_url" data-validate="url" placeholder="原文地址" />
             </div>
+            <div class="form-group">
+                <label class="control-label">模块类型</label>
+                <input type="text" class="form-control" name="module_type" data-validate="url" placeholder="原文地址" />
+            </div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-success">保存</button>

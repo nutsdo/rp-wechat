@@ -22,6 +22,7 @@ class CreateWechatNewsTable extends Migration {
             $table->string('description');
             $table->string('news_url');
             $table->text('body');
+            $table->string('module_type');
 			$table->timestamps();
 		});
 	}

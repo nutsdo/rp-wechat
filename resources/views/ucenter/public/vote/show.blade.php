@@ -25,6 +25,7 @@
  </HEAD>
  <body>
     <!--顶部悬浮层-->
+    @if($user=='' || $user->subscribe==0)
      <div id="wrap">
          <div class="modal-dialog fudong" role="document">
              <div class="modal-content quyuanjiao">
@@ -37,6 +38,7 @@
              </div>
          </div>
      </div>
+     @endif
    	 <!--搜索框-->
    	 <div class="container">
          <form class="form-search form">
@@ -58,9 +60,9 @@
  <DIV id="waterfall"  id="masonry">
     @foreach($vote->players as $player)
  	<DIV class="cell thumbnail mar mar1">
- 		<A href="#">
+ 		<a href="{{ route('ucenter.wechat.vote.user.info',[$wechatId,$voteId,$player->id]) }}">
  		{!! Html::image($player->image_url) !!}
- 		</A>
+ 		</a>
  		<div class="caption mes">
              <span class="pull-left">{{$player->join_number}}号参赛</span><span class="pull-right">No.{{$player->join_number}}</span><br>
              <span class="pull-left">{{$player->nickname}}</span><span class="pull-right">{{$player->voted_count}}票</span>
@@ -72,66 +74,71 @@
  	</DIV>
  	@endforeach
  </div>
-
-   	<!--底部悬浮层-->
-     <div class="page-header-fixed">
-     <div class="navbar navbar-inverse navbar-fixed-bottom color">
-         <div class="navbar-inner">
-            <div class="col-xs-5 colxs center">
-                <div class="container con">
-                        <a href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$vote->id])}}">
-                        {!! Html::image('style/html/imges/other_ren.png') !!}
-                        立即报名</a>
-                 </div>
+<input name="openid" value="@if($user=='' || $user->subscribe==0) @else {{ $user->openid }} @endif" class="display:none" />
+<!--底部悬浮层-->
+ <div class="page-header-fixed">
+ <div class="navbar navbar-inverse navbar-fixed-bottom color">
+     <div class="navbar-inner">
+        <div class="col-xs-5 colxs center">
+            <div class="container con">
+                    <a href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$vote->id])}}">
+                    {!! Html::image('style/html/imges/other_ren.png') !!}
+                    立即报名</a>
              </div>
-            <div class="col-xs-2 sm">
-                {!! Html::image('style/html/imges/other_shu.png') !!}
-            </div>
-            <div class="col-xs-5 colxs center">
-                <div class="container con cons">
-                    <a href="{{route('ucenter.wechat.vote.toplist',[$wechatId,$vote->id])}}">{!! Html::image('style/html/imges/other_05.png') !!}全部排名</a>
-                 </div>
+         </div>
+        <div class="col-xs-2 sm">
+            {!! Html::image('style/html/imges/other_shu.png') !!}
+        </div>
+        <div class="col-xs-5 colxs center">
+            <div class="container con cons">
+                <a href="{{route('ucenter.wechat.vote.toplist',[$wechatId,$vote->id])}}">{!! Html::image('style/html/imges/other_05.png') !!}全部排名</a>
              </div>
          </div>
      </div>
-     </div>
+ </div>
+ </div>
 
-     <!-- Modal模态窗口 -->
-     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     	<div class="modal-dialog kuang" role="document">
-         	<div class="modal-content">
-             	<div class="modal-header m_head">
-                 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     	<span aria-hidden="true">&times;</span>
-                     </button>
-                     <h4 class="modal-title" id="myModalLabel"></h4>
-                 </div>
-                 <div class="modal-body center">
-                    {!! Html::image('style/html/imges/Main_alert_cuo.png') !!}
-                 </div>
-                 <div class="modal-footer  m_foot">
-                 	<button type="button" class="btn btn-primary  btnbj radius">关注公众号，立即参加活动</button>
-                 </div>
-         	</div>
-     	</div>
- 	</div>
- 	<script>
- 	function showModal(obj){
- 		$('#myModal').modal('show');
- 	}
- 	</script>
+ <!-- Modal模态窗口 -->
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog kuang" role="document">
+        <div class="modal-content">
+            <div class="modal-header m_head">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h4 class="modal-title" id="myModalLabel"></h4>
+             </div>
+             <div class="modal-body center">
+                {!! Html::image('style/html/imges/Main_alert_cuo.png',null,['id'=>'fail','style'=>'display:none']) !!}
+                {!! Html::image('style/html/imges/Apply_s_dui.png',null,['id'=>'success','style'=>'display:none']) !!}
+             </div>
+             <div class="modal-footer  m_foot">
+                <button type="button" name="follow" class="btn btn-primary  btnbj radius">关注公众号，立即参加活动</button>
+             </div>
+        </div>
+    </div>
+</div>
+
 {!! Html::script('style/html/js/jquery.wechat-vote.js') !!}
 <script>
 
 $('button[data-event="vote"]').click(function(){
-    console.log($(this).data('player_id'));
     var vote_url = $(this).data('vote_url');
+    var openid = $('input[name=openid]').val();
     $.ajax({
         type:'POST',
         url:vote_url,
-        data:{'wechatId':2},
+        data:{
+            'openid':openid
+        },
         success:function(data){
-            console.log(data.msg);
+            if(data.status=='success'){
+                $('#success').css('display','inline');
+            }else{
+                $('#fail').css('display','inline');
+            }
+            $('button[name=follow]').text(data.msg);
+            $('#myModal').modal('show');
         },
         dataType:'json'
     });
@@ -161,7 +168,6 @@ $('button[data-event="vote"]').click(function(){
               success:function(data){
                 ++page;
                 html +=data;
-
               },
               dataType:'json'
           });

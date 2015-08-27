@@ -43,6 +43,12 @@
         <ul class="list-unstyled mailbox-list">
             <li class="list-header">高级功能</li>
             <li>
+                <a href="{{route('ucenter.wechat.module.index',$wechatId)}}">
+                    模块管理
+                    <span class="badge badge-success badge-roundless pull-right upper">Module</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('ucenter.wechat.vote.index',$wechatId)}}">
                     投票
                     <span class="badge badge-success badge-roundless pull-right upper">Vote</span>

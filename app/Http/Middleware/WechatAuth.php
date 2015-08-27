@@ -16,7 +16,14 @@ class WechatAuth {
 	{
         //获取服务号下的openid，注：回调页需带入本公众号下的openid，带入参数请在自动回复中的url中设置
         //在回调页(业务页)使用带入的openid,获取本公众号下的用户信息。
-        if(session('logged_user')->openid){
+        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') === false ) {
+            return "请在微信中打开";
+        }
+
+        if(session('logged_user')){
+            if(session('logged_user')->openid){
+                return redirect()->route('wechat.authorize',$request->route('wechat'));
+            }
             return $next($request);
         }else{
             if($request->ajax()){

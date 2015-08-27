@@ -26,10 +26,18 @@
    <body>
  	<!--报名失败-->
  	<div class="container ">
- 		<div class="bigimg">{!! Html::image('style/html/imges/Apply_s_bai.png') !!}</div>
- 		<div class="tishi1"><p>报名失败</p></div>
+ 		<div class="bigimg">{!! Html::image('style/html/imges/Apply_f_bai.png') !!}</div>
+ 		<div class="tishi1">
+ 		    <p>报名失败</p>
+ 		    <p>@if($status=='no_start') 活动未开始 @elseif($status=='end') 活动已结束  @endif</p>
+ 		</div>
  		<div class="mybtn1">
+ 		@if($status)
+ 		    <a class="btn btn-default btn-lg false" href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}" role="button">返回首页</a>
+
+ 		@else
  			<a class="btn btn-default btn-lg false" href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$voteId])}}" role="button">返回报名</a>
+ 		@endif
  		</div>
  	</div>
 

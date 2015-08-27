@@ -9,6 +9,7 @@
 namespace App\Repositories\WechatRepositories;
 
 
+use App\Vote;
 use App\VoteUsers;
 
 class VoteUserRepository {
@@ -26,7 +27,7 @@ class VoteUserRepository {
             $fullFileName = $path.'/'.$fileName;
         }
         $join_number = VoteUsers::where('vote_id','=',$voteId)->count();
-        return VoteUsers::create([
+        $vote_user = VoteUsers::create([
             'join_number'=> $join_number+1,
             'vote_id'=>$voteId,
             'nickname'=>$request->all()['nickname'],
@@ -34,5 +35,12 @@ class VoteUserRepository {
             'image_url'=>$fullFileName,
             'join_body'=>$request->all()['join_body'],
         ]);
+        //更新总投票数
+        if($vote_user->id){
+            $vote = Vote::find($voteId);
+            $vote->join_count += 1;
+            $vote->save();
+        }
+        return $vote_user;
     }
 }

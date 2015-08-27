@@ -72,7 +72,7 @@
             <div class="form-group">
                 <label class="control-label" for="vote_time">活动时间</label>
 
-                <input type="text" name="vote_time" id="vote_time" value="{{$vote->start_at.' - '.$vote->end_at}}" class="form-control daterange" data-time-picker="true" data-time-picker-increment="5" data-format="YYYY-MM-DD HH:mm:ss" placeholder="活动时间"/>
+                <input type="text" name="vote_time" id="vote_time" value="{{$vote->start_at.'&nbsp;-&nbsp;'.$vote->end_at}}" class="form-control daterange" data-time-picker="true" data-time-picker-increment="5" data-format="YYYY-MM-DD HH:mm:ss" placeholder="活动时间"/>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">保存</button>

@@ -39,12 +39,12 @@
  	<!--导航位置-->
  	<div class="nav">
  		<div class="col-xs-2">
- 		<a href="main.html">
- 		{!! Html::image('style/html/imges/Apply_jiantou.png')!!}
+ 		<a href="{{route('ucenter.wechat.vote.show',[$wechatId,$vote->id])}}">
+ 		    {!! Html::image('style/html/imges/Apply_jiantou.png')!!}
  		</a>
  		</div>
  		<div class="col-xs-10 pad">
- 		<span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}">返回首页</a></span>
+ 		<span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$vote->id])}}">返回首页</a></span>
  		</div>
  		</div>
  	</div>
@@ -52,71 +52,52 @@
      <a href="#">{!! Html::image('style/html/imges/Main_bimg.png',null,['class'=>'bar'])!!}</a>
      <div class="info">
         {!! Html::image('style/html/imges/Main_03.jpg',null,['class'=>'icon'])!!}
-     	<span>截止目前参加报名人数[10000]人，投票人数[10000]人</span>
+     	<span>截止目前参加报名人数[{{ $vote->join_count}}]人，投票人数[{{ $vote->vote_count}}]人</span>
      </div>
 	<!--表格-->
 	<div class="container main">
 	<table class="table">
 	  <thead>
 		<tr>
-		  <th>名称</th>
+		  <th>排名</th>
 		  <th>昵称</th>
 		  <th>编号</th>
 		  <th>票数</th>
 		</tr>
 	  </thead>
 	  <tbody>
+	  @foreach($vote_users as $key=>$user)
 		<tr class="info">
-			<td>1</td>
-			<td><a href="Result.html">蛋大人</a></td>
-			<td>01</td>
-			<td>1000</td>
+			<td>{{ $key+1 }}</td>
+			<td><a href="{{ route('ucenter.wechat.vote.user.info',[$wechatId,$vote->id,$user->id]) }}">{{ $user->nickname }}</a></td>
+			<td>{{ $user->id }}</td>
+			<td>{{ $user->voted_count }}</td>
 		</tr>
-		<tr>
-		  <td>1</td>
-			  <td><a href="Result.html">蛋大人</a></td>
-		  <td>01</td>
-		  <td>1000</td>
-		</tr>
-		<tr class="info">
-		  <td>1</td>
-			  <td><a href="Result.html">蛋大人</a></td>
-		  <td>01</td>
-		  <td>1000</td>
-		</tr>
-		<tr>
-		  <td>1</td>
-			  <td><a href="Result.html">蛋大人</a></td>
-		  <td>01</td>
-		  <td>1000</td>
-		</tr>
-		<tr class="info">
-		  <td>1</td>
-			  <td><a href="Result.html">蛋大人</a></td>
-		  <td>01</td>
-		  <td>1000</td>
-		</tr>
+	  @endforeach
 	  </tbody>
 	</table>
+	<div>
+	    {{$vote_users->render()}}
+	</div>
 	</div>
  	<!--底部悬浮层-->
      <div class="page-header-fixed">
      <div class="navbar navbar-inverse navbar-fixed-bottom color">
-             <div class="navbar-inner">
-                 	<div class="col-xs-5 colxs">
- 						<div class="container con">
-                	    		<a href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$voteId])}}">{!! Html::image('style/html/imges/other_ren.png')!!}立即报名</a>
-                         </div>
-                     </div>
-                 	<div class="col-xs-2 sm">
-                 	    {!! Html::image('style/html/imges/other_shu.png')!!}
-                     </div>
-                 	<div class="col-xs-5 colxs">
- 						<div class="container con cons">
-                     		<a href="#">{!! Html::image('style/html/imges/other_05.png')!!}全部排名</a>
-                         </div>
-                     </div>
+         <div class="navbar-inner">
+            <div class="col-xs-5 colxs">
+                <div class="container con">
+                        <a href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$vote->id])}}">{!! Html::image('style/html/imges/other_ren.png')!!}立即报名</a>
+                 </div>
              </div>
+            <div class="col-xs-2 sm">
+                {!! Html::image('style/html/imges/other_shu.png')!!}
+             </div>
+            <div class="col-xs-5 colxs">
+                <div class="container con cons">
+                    <a href="#">{!! Html::image('style/html/imges/other_05.png')!!}全部排名</a>
+                 </div>
+            </div>
+         </div>
      </div>
      </div>
 

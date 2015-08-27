@@ -58,10 +58,6 @@ Route::group(['namespace' => 'Wechat'],function(){
     Route::get('/wechat/{wechatId}/authorize',[
         'as'=>'wechat.authorize','uses'=>'WechatController@auth'
     ]);
-    //session测试
-    Route::get('/wechat/{wechatId}/session',[
-        'as'=>'wechat.session','uses'=>'WechatController@session'
-    ]);
 });
 
 
@@ -136,6 +132,11 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
         'as'=>'ucenter.wechat.reply-update-news','uses'=>'WechatController@updateNewsReply'
     ]);
 
+    /*
+     * 模块管理
+     * */
+    Route::resource('wechat.module','WechatModuleController');
+
 
     //投票资源
 
@@ -147,8 +148,20 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
     //投票排行榜
     Route::get('wechat/{wechat}/vote/{vote}/toplist',[
         'middleware'=>'wechatAuth',
-        'as'=>'ucenter.wechat.vote.toplist','uses'=>'VoteController@toplist'
+        'as'=>'ucenter.wechat.vote.toplist','uses'=>'\App\Http\Controllers\Home\Wechat\VoteController@toplist'
     ]);
+
+    //用户报名
+//    Route::get('wechat/{wechat}/vote/{vote}/user/create',[
+//        'middleware'=>'wechatAuth',
+//        'as'=>'ucenter.wechat.vote.user.create','uses'=>'\App\Http\Controllers\Home\Wechat\VoteController@create'
+//    ]);
+    //参与用户详情
+    Route::get('wechat/{wechat}/vote/{vote}/user/{user}/info',[
+        'middleware'=>'wechatAuth',
+        'as'=>'ucenter.wechat.vote.user.info','uses'=>'\App\Http\Controllers\Home\Wechat\VoteController@userInfo'
+    ]);
+
 
     Route::resource('wechat.vote', 'VoteController',['except' => ['show']]);
 

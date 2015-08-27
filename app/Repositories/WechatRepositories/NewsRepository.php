@@ -19,6 +19,7 @@ class NewsRepository {
             'description' => $data['description'],
             'news_url' => $data['news_url'],
             'body' => $data['body'],
+            'module_type' => $data['module_type'],
         ]);
     }
 
