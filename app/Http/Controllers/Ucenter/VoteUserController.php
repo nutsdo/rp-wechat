@@ -62,7 +62,8 @@ class VoteUserController extends BaseController{
     public function show($wechatId,$voteId,$userId)
     {
         $user = VoteUsers::find($userId);
-        return view('ucenter.public.vote.user',compact('user'));
+        $voter = session('logged_user.userid');
+        return view('ucenter.public.vote.user',compact('user','voter'));
     }
 
     public function voting(Request $request,$wechatId,$voteId,$userId){

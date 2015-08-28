@@ -43,6 +43,7 @@ class VoteController extends Controller{
 
             //保存用户openid到session
             Session::put('logged_user.userid', $userid);
+            $user = Sesstion::get('logged_user.userid');
 
         }else{//未关注、认证服务号
             $user = '';//表示用户未关注

@@ -126,7 +126,7 @@
                  type:'POST',
                  url:vote_url,
                  data:{
-                     'openid':"{{ $userid }}"
+                     'openid':"{{ $voter }}"
                  },
                  success:function(data){
                      if(data.status=='success'){
