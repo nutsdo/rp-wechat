@@ -23,8 +23,8 @@ class VoteController extends Controller{
         $this->updateJoinCount($voteId);
         $wechat = Wechat::find($wechatId);
 
-        if(!empty($_GET['userid'])){//订阅号
-            $userid = $_GET['userid'];
+        if($request->route('userid')){//订阅号
+            $userid = $request->route('userid');
 //            if($wechat->wechat_type=4){ //认证服务号
 //                //获取公众号信息
 //                $wechat = Wechat::find($wechatId);
@@ -43,7 +43,7 @@ class VoteController extends Controller{
 
             //保存用户openid到session
             Session::put('logged_user.userid', $userid);
-            $user = Sesstion::get('logged_user.userid');
+            $user = Session::get('logged_user.userid');
 
         }else{//未关注、认证服务号
             $user = '';//表示用户未关注

@@ -141,7 +141,7 @@ Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
     //投票资源
 
     //投票首页
-    Route::get('wechat/{wechat}/vote/{vote}/show',[
+    Route::get('wechat/{wechat}/vote/{vote}/show/{userid?}',[
         'middleware'=>'wechatAuth',
         'as'=>'ucenter.wechat.vote.show','uses'=>'\App\Http\Controllers\Home\Wechat\VoteController@show'
     ]);

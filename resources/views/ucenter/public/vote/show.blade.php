@@ -25,7 +25,7 @@
  </HEAD>
  <body>
     <!--顶部悬浮层-->
-    @if($user=='' || $user->subscribe==0)
+    @if($user=='')
      <div id="wrap">
          <div class="modal-dialog fudong" role="document">
              <div class="modal-content quyuanjiao">
