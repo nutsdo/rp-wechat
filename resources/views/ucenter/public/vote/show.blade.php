@@ -74,7 +74,7 @@
  	</DIV>
  	@endforeach
  </div>
-<input name="openid" value="{{ $user }}" style="display:none" />
+<div id="openid" data-userid="{{ $user }}" style="display:none" ></div>
 <!--底部悬浮层-->
  <div class="page-header-fixed">
  <div class="navbar navbar-inverse navbar-fixed-bottom color">
@@ -124,7 +124,7 @@
 
 $('button[data-event="vote"]').click(function(){
     var vote_url = $(this).data('vote_url');
-    var openid = $('input[name=openid]').val();
+    var openid = $('#openid').data('userid');
     $.ajax({
         type:'POST',
         url:vote_url,
