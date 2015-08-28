@@ -27,8 +27,8 @@ class VoteController extends Controller{
             $userid = $request->route('userid');
 
             //保存用户openid到session
-            Session::put('logged_user.userid', $userid);
-            $user = Session::get('logged_user.userid');
+            Session::put('logged_userid', $userid);
+            $user = Session::get('logged_userid');
 
         }else{//未关注、认证服务号
             $user = '';//表示用户未关注
