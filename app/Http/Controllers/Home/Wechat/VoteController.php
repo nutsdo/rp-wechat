@@ -48,16 +48,18 @@ class VoteController extends Controller{
     {
         $vote = Vote::find($voteId);
         $vote_users = VoteUsers::where('vote_id','=',$voteId)->orderBy('voted_count','DESC')->paginate(20);
-        return view('ucenter.public.vote.top-list',compact('wechatId','voteId','vote','vote_users'));
+        $voter = Session::get('logged_userid');
+        return view('ucenter.public.vote.top-list',compact('wechatId','voteId','vote','vote_users','voter'));
     }
 
     public function userInfo($wechatId,$voteId,$userId)
     {
         $vote = Vote::find($voteId);
         $user = VoteUsers::find($userId);
+        $voter = Session::get('logged_userid');
         $userid = session('logged_user.userid');
         $ranking = $this->ranking($voteId, $user);
-        return view('ucenter.public.vote.user',compact('user','wechatId','vote','ranking','userid'));
+        return view('ucenter.public.vote.user',compact('user','wechatId','vote','ranking','userid','voter'));
     }
 
     //计算投票排名

@@ -43,7 +43,7 @@
         <a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}">{!! Html::image('style/html/imges/Apply_jiantou.png') !!}</a>
     </div>
     <div class="col-xs-10 pad">
-        <span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}">返回首页</a></span>
+        <span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId]).'/'.$voter}}">返回首页</a></span>
     </div>
 </div>
 </div>
@@ -55,6 +55,7 @@
 <div class="container ">
 
     {!! Form::open(['route'=>['ucenter.wechat.vote.user.store',$wechatId,$voteId],'role'=>'form','class'=>'validate','enctype'=>"multipart/form-data"]) !!}
+        {!! Form::hidden('open_id',$voter) !!}
         <div class="form-group @if($errors->first('nickname')) has-error @endif">
             <label for="nickname">* 昵称</label>
             <input type="text" class="form-control" name="nickname" id="nickname" placeholder="点击这里输入您的昵称" />

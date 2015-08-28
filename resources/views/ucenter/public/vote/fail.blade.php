@@ -33,7 +33,7 @@
  		</div>
  		<div class="mybtn1">
  		@if($status)
- 		    <a class="btn btn-default btn-lg false" href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}" role="button">返回首页</a>
+ 		    <a class="btn btn-default btn-lg false" href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId]).'/'.$voter}}" role="button">返回首页</a>
 
  		@else
  			<a class="btn btn-default btn-lg false" href="{{route('ucenter.wechat.vote.user.create',[$wechatId,$voteId])}}" role="button">返回报名</a>

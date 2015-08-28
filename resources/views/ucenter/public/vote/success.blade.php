@@ -26,7 +26,7 @@
  	<!--导航位置-->
  	<div class="nav">
  		<div class="col-xs-6">
- 		    <span class="pull-left"><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId])}}">返回首页</a></span>
+ 		    <span class="pull-left"><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$voteId]).'/'.$voter}}">返回首页</a></span>
  		</div>
  		<div class="col-xs-6">
  		    <span class="pull-right"><a href="{{route('ucenter.wechat.vote.toplist',[$wechatId,$voteId])}}">查看结果</a></span>

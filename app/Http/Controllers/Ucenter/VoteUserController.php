@@ -14,6 +14,7 @@ use App\Vote;
 use App\VoteRecord;
 use App\VoteUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class VoteUserController extends BaseController{
     public $vote;
@@ -34,8 +35,8 @@ class VoteUserController extends BaseController{
         }elseif($status=='end'){
             return view('ucenter.public.vote.fail',compact('wechatId','voteId','status'));
         }
-
-        return view('ucenter.public.vote.user_register',compact('voteId'));
+        $voter = Session::get('logged_userid');
+        return view('ucenter.public.vote.user_register',compact('voteId','voter'));
     }
 
     //
@@ -51,20 +52,22 @@ class VoteUserController extends BaseController{
 
     public function success($wechatId,$voteId)
     {
-        return view('ucenter.public.vote.success',compact('wechatId','voteId'));
+        $voter = Session::get('logged_userid');
+        return view('ucenter.public.vote.success',compact('wechatId','voteId','voter'));
     }
 
     public function fail($wechatId,$voteId)
     {
-        return view('ucenter.public.vote.fail',compact('wechatId','voteId'));
+        $voter = Session::get('logged_userid');
+        return view('ucenter.public.vote.fail',compact('wechatId','voteId','voter'));
     }
 
-    public function show($wechatId,$voteId,$userId)
-    {
-        $user = VoteUsers::find($userId);
-        $voter = session('logged_userid');
-        return view('ucenter.public.vote.user',compact('user','voter'));
-    }
+//    public function show($wechatId,$voteId,$userId)
+//    {
+//        $user = VoteUsers::find($userId);
+//        $voter = Session::get('logged_userid');
+//        return view('ucenter.public.vote.user',compact('user','voter'));
+//    }
 
     public function voting(Request $request,$wechatId,$voteId,$userId){
         $status = $this->voteDate($voteId);
