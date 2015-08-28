@@ -20,7 +20,7 @@ class WechatAuth {
             return "请在微信中打开";
         }
 
-        if(session('logged_user')){
+        if(!session('logged_user')){
 
             if(!session('logged_user')->openid){
                 return redirect()->route('wechat.authorize',$request->route('wechat'));
