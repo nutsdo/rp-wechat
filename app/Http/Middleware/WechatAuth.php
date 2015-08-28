@@ -14,7 +14,7 @@ class WechatAuth {
 	 */
 	public function handle($request, Closure $next)
 	{
-        
+
         //获取服务号下的openid，注：回调页需带入本公众号下的openid，带入参数请在自动回复中的url中设置
         //在回调页(业务页)使用带入的openid,获取本公众号下的用户信息。
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') === false ) {

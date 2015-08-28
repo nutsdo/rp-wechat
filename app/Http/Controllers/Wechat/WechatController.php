@@ -87,7 +87,7 @@ class WechatController extends Controller{
                     $news = WechatNews::find($content->content);
                     if($news){
                         return Message::make('news')->items(function() use ($news,$message){
-                            if($news->module='vote') $news->news_url .= "?userid=".$message->FromUserName;
+                            if($news->module='vote') $news->news_url .= "/".$message->FromUserName;
                             return array(
                                 Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover)
                             );
