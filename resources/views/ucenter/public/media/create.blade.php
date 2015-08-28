@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label class="control-label">封面</label>
 
-                <input type="text" class="form-control" name="pic_url" data-validate="required,url" placeholder="封面地址" />
+                <input type="text" class="form-control" name="pic_url" data-validate="required" placeholder="封面地址" />
             </div>
 
             <div class="form-group">
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">模块类型</label>
-                <input type="text" class="form-control" name="module_type" data-validate="url" placeholder="原文地址" />
+                <input type="text" class="form-control" name="module_type" data-validate="" placeholder="模块类型" />
             </div>
 
             <div class="form-group">
