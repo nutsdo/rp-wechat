@@ -132,8 +132,8 @@ class WechatController extends Controller{
 
             Session::put('logged_user', $user);
 
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
 }

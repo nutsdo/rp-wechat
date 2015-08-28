@@ -55,7 +55,7 @@ Route::group(['namespace' => 'Wechat'],function(){
     Route::match(['get','post'],'wechat/{wechatId}','WechatController@index');
 
     //微信授权页面
-    Route::get('/wechat/{wechatId}/authorize',[
+    Route::get('/wechat/{wechat}/authorize',[
         'as'=>'wechat.authorize','uses'=>'WechatController@auth'
     ]);
 });
