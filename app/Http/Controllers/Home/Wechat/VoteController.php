@@ -25,21 +25,6 @@ class VoteController extends Controller{
 
         if($request->route('userid')){//订阅号
             $userid = $request->route('userid');
-//            if($wechat->wechat_type=4){ //认证服务号
-//                //获取公众号信息
-//                $wechat = Wechat::find($wechatId);
-//                $userService = new User($wechat->app_id,$wechat->secret);
-//                //获取用户信息
-//                $user = $userService->get($userid);
-//                //判断是否关注
-//                if($user->subscribe==0){
-//                    //用户未关注
-//                }else{
-//                    //保存session(替换session)
-//                    Session::put('user_info',$user);
-//                    //
-//                }
-//            }
 
             //保存用户openid到session
             Session::put('logged_user.userid', $userid);
