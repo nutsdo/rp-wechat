@@ -74,7 +74,7 @@
  	</DIV>
  	@endforeach
  </div>
-<input name="openid" value="{{ $user }}" class="display:none" />
+<input name="openid" value="{{ $user }}" style="display:none" />
 <!--底部悬浮层-->
  <div class="page-header-fixed">
  <div class="navbar navbar-inverse navbar-fixed-bottom color">
