@@ -21,7 +21,7 @@ class WechatAuth {
         }
 
         if(session('logged_user')){
-            if(session('logged_user')->openid){
+            if(session('logged_user')->data->openid){
                 return redirect()->route('wechat.authorize',$request->route('wechat'));
             }
             return $next($request);
