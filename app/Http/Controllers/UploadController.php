@@ -29,7 +29,7 @@ class UploadController extends Controller{
                     $name = $file->getClientOriginalName(); //取得上传文件的原始名称
                     $extension = $file->getClientOriginalExtension();//取得上传文件的后缀名
                     $path = 'uploads/'.$type.'/';
-                    $savePath = $path.date('Ymd',time());
+                    $savePath = public_path().$path.date('Ymd',time());
                     echo $savePath.'\n';
                     //File::exists($savePath) or File::makeDirectory($savePath);
                     echo "创建目录前\n";
