@@ -44,7 +44,7 @@
  		</a>
  		</div>
  		<div class="col-xs-10 pad">
- 		<span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$vote->id].'/'.$voter)}}">返回首页</a></span>
+ 		<span><a href="{{route('ucenter.wechat.vote.show',[$wechatId,$vote->id]).'/'.$voter}}">返回首页</a></span>
  		</div>
  		</div>
  	</div>
