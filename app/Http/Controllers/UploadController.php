@@ -30,9 +30,14 @@ class UploadController extends Controller{
                     $extension = $file->getClientOriginalExtension();//取得上传文件的后缀名
                     $path = 'uploads/'.$type.'/';
                     $savePath = $path.date('Ymd',time());
+                    echo $savePath.'\n';
                     //File::exists($savePath) or File::makeDirectory($savePath);
+                    echo "创建目录前\n";
                     is_dir($savePath) || mkdir($savePath,0755,true); //如果目录不存在则创建
+
                     chmod($savePath,0755);
+                    echo "创建目录后\n";
+                    echo "权限：".substr(base_convert(@fileperms($savePath),10,8),-4);
                     //
                     $uniqid = uniqid(); //函数基于以微秒计的当前时间，生成一个唯一的 ID。
                     $saveFileName = $uniqid.'_'.$type.'.'.$extension;
