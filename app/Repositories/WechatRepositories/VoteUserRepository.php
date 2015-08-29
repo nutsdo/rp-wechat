@@ -11,6 +11,7 @@ namespace App\Repositories\WechatRepositories;
 
 use App\Vote;
 use App\VoteUsers;
+use Illuminate\Support\Facades\File;
 
 class VoteUserRepository {
 
@@ -22,7 +23,7 @@ class VoteUserRepository {
             $fileName = uniqid().'_vote.'.$extension;  //设置文件名
             //设置保存文件路径
             $path = 'uploads/vote/'.date('Ymd',time());
-            is_dir($path) || mkdir($path,null,true); //如果目录不存在则创建
+            File::exists($path) or File::makeDirectory($path,0755,true); //如果目录不存在则创建
             $file->move($path,$fileName);
             $fullFileName = $path.'/'.$fileName;
         }
