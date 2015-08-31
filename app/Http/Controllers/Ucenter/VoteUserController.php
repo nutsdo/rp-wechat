@@ -46,7 +46,8 @@ class VoteUserController extends BaseController{
         if($user){
             return redirect()->route('ucenter.wechat.vote.user.success',[$wechatId,$voteId]);
         }else{
-            return redirect()->route('ucenter.wechat.vote.user.fail',[$wechatId,$voteId]);
+            $msg = '您已经报过名了～';
+            return redirect()->route('ucenter.wechat.vote.user.fail',[$wechatId,$voteId])->with('msg',$msg);
         }
     }
 

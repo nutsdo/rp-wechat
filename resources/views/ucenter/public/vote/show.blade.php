@@ -10,7 +10,7 @@
  <HTML>
  <HEAD>
  <meta content="text/html; charset=gb2312" http-equiv="Content-Type">
- <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0;">
  <STYLE type="text/css">
     body{position:relative;margin:0;}
  </STYLE>
