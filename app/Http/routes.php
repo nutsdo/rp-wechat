@@ -43,6 +43,10 @@ Route::group(['namespace' => 'Home'],function(){
     Route::post('activity/action',[
         'as'=>'activity.start','uses'=>'EventController@start'
     ]);
+
+    Route::get('wechat/{id}/voice',[
+        'as'=>'wechat.voice','uses'=>'Wechat\VoiceController@index'
+    ]);
 });
 
 Route::get('posts','Home\PostController@all');
