@@ -26,15 +26,40 @@ class VoiceController extends Controller{
     {
         $js = $this->js;
         $apis = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
             'startRecord',
             'stopRecord',
-            'onVoiceRecordEnd',
+            'onRecordEnd',
             'playVoice',
             'pauseVoice',
             'stopVoice',
-            'onVoicePlayEnd',
             'uploadVoice',
             'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
         ];
         $wechatJs = $js->config($apis);
         return view('home.voice.index',compact('wechatJs'));
