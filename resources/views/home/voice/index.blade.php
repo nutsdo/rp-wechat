@@ -10,6 +10,7 @@
  <html lang="en">
  <head>
    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
    <title></title>
  </head>
 <style>
@@ -203,7 +204,7 @@ h3:before {
 }
 </style>
  {!! Html::script('http://res.wx.qq.com/open/js/jweixin-1.0.0.js')!!}
-
+ {!! Html::script('style/html/js/zepto.min.js')!!}
  <script>
      wx.config({!! $wechatJs !!});
      wx.ready(function(){
